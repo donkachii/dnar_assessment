@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchRate } from "../../features/exchange/rateSlice";
 
 import "./charts.scss";
+import { fetchDerivative } from "../../features/exchange/derivativeSlice";
 
 const Charts = () => {
   const [sellSelected, setSellSelected] = useState("btc");
@@ -17,10 +18,16 @@ const Charts = () => {
   const [buyPrice, setBuyPrice] = useState("13.769");
 
   const rates = useSelector((state) => state.rates);
+  const derivatives = useSelector((state) => state.derivatives);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchRate());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchDerivative());
   }, [dispatch]);
 
   const changeSellSelectHandler = (event) => {
@@ -60,9 +67,13 @@ const Charts = () => {
             </div>
             {/* Chart */}
             <div className="bar rounded-xl mb-5 flex mob:flex-row flex-col flex-wrap mx-3">
-              <h1 className="p-6">Market Leaders</h1>
+              <h1 className="p-6">$29,800.65</h1>
               <div className="flex px-6 h-80">
-                <LineCharts />
+                {derivatives.loading && <div>Loading...</div>}
+                {!derivatives.loading && derivatives.error ? (
+                  <div> Error: {derivatives.error}</div>
+                ) : null}
+                <LineCharts derivatives={derivatives} />
               </div>
             </div>
             {/* Exchange */}

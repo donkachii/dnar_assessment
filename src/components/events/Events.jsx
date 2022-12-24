@@ -9,9 +9,9 @@ const Events = ({ trendings }) => {
         <div> Error: {trendings.error}</div>
       ) : null}
       {!trendings.loading && trendings.trending.length != 0
-        ? trendings.trending.coins.map((trending, i) => (
-            <EventCard trending={trending} key={i} />
-          ))
+        ? trendings.trending
+            .slice(0, 8)
+            .map((trending, i) => <EventCard trending={trending} key={i} />)
         : null}
     </div>
   );

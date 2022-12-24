@@ -8,9 +8,9 @@ const CoinList = ({ coins }) => {
       {coins.loading && <div>Loading...</div>}
       {!coins.loading && coins.error ? <div> Error: {coins.error}</div> : null}
       {!coins.loading && coins.coinItems.length != 0
-        ? coins.coinItems
-            .slice(0, 8)
-            .map((coin, i) => <CoinCard coin={coin} key={i} />)
+        ? coins.coinItems.coins.map((coin, i) => (
+            <CoinCard coin={coin} key={i} />
+          ))
         : null}
     </div>
   );

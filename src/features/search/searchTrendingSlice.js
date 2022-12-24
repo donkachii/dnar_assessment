@@ -9,7 +9,7 @@ const initialState = {
 
 export const fetchTrending = createAsyncThunk("trending/fetchTrending", () => {
   return axios
-    .get("https://api.coingecko.com/api/v3/search/trending")
+    .get("https://api.coingecko.com/api/v3/coins/categories")
     .then((response) => response.data);
 });
 
